@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">Datafun</string>
+    <string name="facebook_app_id">241963126142655</string>
+    <string name="login_canceled">Login canceled</string>
+    <string name="fb_login">Facebook login</string>
+    <string name="sync_data">Sync data</string>
+    <string name="music_info">Music info</string>
+    <string name="filter">Filter</string>
+    <string name="contains_text">Contains text..</string>
+    <string name="set_after_date">set after date</string>
+    <string name="clear">clear</string>
 </resources>

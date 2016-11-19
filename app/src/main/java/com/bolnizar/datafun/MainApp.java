@@ -2,6 +2,7 @@ package com.bolnizar.datafun;
 
 import android.app.Application;
 
+import com.bolnizar.datafun.persistance.CleanSqlHelper;
 import com.facebook.FacebookSdk;
 import com.facebook.appevents.AppEventsLogger;
 
@@ -10,11 +11,18 @@ import com.facebook.appevents.AppEventsLogger;
  */
 public class MainApp extends Application {
 
+    private static CleanSqlHelper sSqlHelper;
+
     @Override
     public void onCreate() {
         super.onCreate();
 
         FacebookSdk.sdkInitialize(getApplicationContext());
         AppEventsLogger.activateApp(this);
+        sSqlHelper = new CleanSqlHelper(this);
+    }
+
+    public static CleanSqlHelper getSqlHelper() {
+        return sSqlHelper;
     }
 }
