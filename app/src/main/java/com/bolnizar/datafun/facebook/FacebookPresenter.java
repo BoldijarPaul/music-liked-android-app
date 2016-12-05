@@ -33,7 +33,24 @@ public class FacebookPresenter extends Presenter<FacebookView> {
                     public void onCompleted(GraphResponse response) {
                         try {
                             Page[] pages = Utils.getGson().fromJson(response.getJSONObject().getJSONArray("data").toString(), Page[].class);
-                            gotPages(pages);
+                            gotPages(pages, "music");
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+        ).executeAsync();
+
+        new GraphRequest(
+                AccessToken.getCurrentAccessToken(),
+                "/" + Profile.getCurrentProfile().getId() + "/books?limit=1000",
+                null,
+                HttpMethod.GET,
+                new GraphRequest.Callback() {
+                    public void onCompleted(GraphResponse response) {
+                        try {
+                            Page[] pages = Utils.getGson().fromJson(response.getJSONObject().getJSONArray("data").toString(), Page[].class);
+                            gotPages(pages, "books");
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -42,11 +59,11 @@ public class FacebookPresenter extends Presenter<FacebookView> {
         ).executeAsync();
     }
 
-    private void gotPages(Page[] pages) {
+    private void gotPages(Page[] pages, String category) {
         SQLiteDatabase database = MainApp.getSqlHelper().getWritableDatabase();
-        database.execSQL("delete from page");
+        database.execSQL("delete from page where category ='" + category + "'");
         for (Page page : pages) {
-            String sql = String.format("insert into page values('%s','%s','%s')", page.id, page.name, page.date.getTime());
+            String sql = String.format("insert into page values('%s','%s','%s','%s')", page.id, page.name, page.date.getTime(), category);
             Log.d("sql", sql);
             database.execSQL(sql);
         }

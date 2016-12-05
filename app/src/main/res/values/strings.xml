@@ -9,4 +9,10 @@
     <string name="contains_text">Contains text..</string>
     <string name="set_after_date">set after date</string>
     <string name="clear">clear</string>
+
+    <string-array name="categories">
+        <item>All</item>
+        <item>Music</item>
+        <item>Books</item>
+    </string-array>
 </resources>

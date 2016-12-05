@@ -27,13 +27,18 @@ public class MusicPresenter extends Presenter<MusicView> {
         database.close();
     }
 
-    public void loadPages(long mBeforeDate, long mAfterDate, String mContains) {
+    public void loadPages(long mBeforeDate, long mAfterDate, String mContains, int spinnerIndex) {
         String sql = "select * from page where name like '%" + mContains + "%'";
         if (mAfterDate != 0) {
             sql += " and date > " + mAfterDate;
         }
         if (mBeforeDate != 0) {
             sql += " and date < " + mBeforeDate;
+        }
+        if (spinnerIndex == 1) {
+            sql += " and category = 'music'";
+        } else if (spinnerIndex == 2) {
+            sql += " and category = 'books'";
         }
         Log.d("sql", sql);
         SQLiteDatabase database = MainApp.getSqlHelper().getReadableDatabase();

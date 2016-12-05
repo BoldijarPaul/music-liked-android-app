@@ -8,8 +8,11 @@ import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.bolnizar.datafun.facebook.Page;
@@ -40,6 +43,8 @@ public class MusicActivity extends AppCompatActivity implements MusicView {
     TextView mAfterDateText;
     @BindView(R.id.filter_before_date_text)
     TextView mBeforeDateText;
+    @BindView(R.id.filter_spinner)
+    Spinner mSpinner;
 
     private long mAfterDate = 0, mBeforeDate = 0;
     private String mContains = "";
@@ -55,6 +60,17 @@ public class MusicActivity extends AppCompatActivity implements MusicView {
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mRecyclerView.setAdapter(mPageAdapter);
         mMusicPresenter.loadPages();
+        mSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                updateFilters();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
     }
 
     @Override
@@ -78,7 +94,7 @@ public class MusicActivity extends AppCompatActivity implements MusicView {
     }
 
     void updateFilters() {
-        mMusicPresenter.loadPages(mBeforeDate, mAfterDate, mContains);
+        mMusicPresenter.loadPages(mBeforeDate, mAfterDate, mContains, mSpinner.getSelectedItemPosition());
     }
 
     @OnTextChanged(R.id.filter_contains)

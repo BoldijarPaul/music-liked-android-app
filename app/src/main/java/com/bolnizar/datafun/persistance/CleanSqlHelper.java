@@ -13,7 +13,8 @@ public class CleanSqlHelper extends SQLiteOpenHelper {
             "create table page(" +
                     "id text primary key," +
                     "name text," +
-                    "date integer)";
+                    "date integer," +
+                    "category text)";
 
     private static final int VERSION_DATABASE = 1;
 

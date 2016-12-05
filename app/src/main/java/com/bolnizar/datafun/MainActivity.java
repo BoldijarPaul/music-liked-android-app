@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity implements FacebookCallback<
 
         mSync.setVisibility(AccessToken.getCurrentAccessToken() == null ? View.INVISIBLE : View.VISIBLE);
         mCallBackManager = CallbackManager.Factory.create();
-        mLoginButton.setReadPermissions("public_profile", "user_friends", "email", "user_actions.music", "user_likes");
+        mLoginButton.setReadPermissions("public_profile", "user_friends", "email", "user_actions.music", "user_likes","user_actions.books","user_actions.news");
         mLoginButton.registerCallback(mCallBackManager, this);
         mFacebookPresenter = new FacebookPresenter(this);
     }
